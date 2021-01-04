@@ -10,7 +10,7 @@ const User = UserModel(sequelize, Sequelize);
 
 sequelize.sync().then(() => {
   // eslint-disable-next-line no-console
-  console.log('Criou a BD users e a tabela user');
+  console.log('Criou a BD users (se não existisse anteriormente) e a tabela user');
 });
 
 module.exports = User;
