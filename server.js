@@ -21,6 +21,6 @@ require('./routes/findUsers')(app);
 require('./routes/deleteUser')(app);
 //require('./routes/updateUser')(app);
 
-app.listen(API_PORT, () => console.log(`A ouvir na porta ${API_PORT}`));
+app.listen(API_PORT, () => console.log(`Estou a ouvir na porta ${API_PORT}`));
 
 module.exports = app;
