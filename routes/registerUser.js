@@ -8,6 +8,7 @@ module.exports = (app) => {
         console.log(err);
       }
       if (info != undefined) {
+        console.log(5);
         console.log(info.message);
         res.send(info.message); // envia ao cliente a indicação da falha de autenticação
       } else {

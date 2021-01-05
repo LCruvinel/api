@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const UserModel = require('./models/user');
+const UserModel = require('./models/utentes');
 
 const sequelize = new Sequelize('users', 'webdev', 'DevWeb01', {
   host: 'localhost',
@@ -9,8 +9,7 @@ const sequelize = new Sequelize('users', 'webdev', 'DevWeb01', {
 const User = UserModel(sequelize, Sequelize);
 
 sequelize.sync().then(() => {
-  // eslint-disable-next-line no-console
-  console.log('Criou a BD users (se não existisse anteriormente) e a tabela user');
+  console.log('Criou a BD users e a tabela utentes (se não existisse anteriormente) ');
 });
 
 module.exports = User;
