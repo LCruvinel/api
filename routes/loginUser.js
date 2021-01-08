@@ -20,7 +20,9 @@ module.exports = (app) => {
               username: user.username,
             },
           }).then((user) => {
-            const token = jwt.sign({ id: user.username }, jwtSecret.secret);
+            const token = jwt.sign({ id: user.username }, jwtSecret.secret,
+               { expiresIn: '24h' // expires in 24 hours
+                          });
             res.status(200).send({
               auth: true,
               token: token,
