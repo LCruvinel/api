@@ -13,20 +13,21 @@ const User = UserModel(sequelize, Sequelize);
 
 sequelize.sync().then(() => {
   console.log(
-    "Criou a BD users e a tabela utentes (se não existisse anteriormente) "
+    "Criou na BD users a tabela utentes (se não existisse anteriormente)"
   );
-});
-/*
-bcrypt.hash("123", BCRYPT_SALT_ROUNDS).then((hashedPassword) => {
-  User.create({
-    first_name: "Admin",
-    last_name: "admin",
-    email: "lc@xpto.pt",
-    username: "admin",
-    password: hashedPassword,
-  }).then((user) => {
-    console.log("Utilizador adicionado!");
+  /*  
+  // Na primeira execução cria a conta do administrador
+  bcrypt.hash("123", BCRYPT_SALT_ROUNDS).then((hashedPassword) => {
+    User.create({
+      first_name: "Admin",
+      last_name: "admin",
+      email: "lc@xpto.pt",
+      username: "admin",
+      password: hashedPassword,
+    }).then((user) => {
+      console.log("Utilizador adicionado!");
+    });
   });
+  */
 });
-*/
 module.exports = User;
