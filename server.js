@@ -6,7 +6,7 @@ const passport = require('passport');
 const app = express();
 
 const API_PORT = process.env.API_PORT || 3000;
-
+app.use(express.static("public"));
 require('./config/passport');
 
 app.use(Cors());

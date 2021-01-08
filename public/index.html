@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dev Web</title>
+</head>
+<body>
+    <h1>Login</h1>
+    <form id="login" action="/loginUser" method="post">
+        <label for="username">Utilizador:</label><br>
+        <input id="username" type="text" name="username"><br><br>
+        <label for="password">Senha (min. 4 carateres):</label><br>
+        <input id="password" type="password" name="password"><br><br>
+        <input id="login_btn" type="submit" value="OK">
+      </form>
+      <p></p>
+      <form id="sqlForm" action="/findUser" method="post">
+        <label for="codigo">Código:</label><br>
+        <input id="codigo" type="number" name="code"><br><br>
+        <label for="nome">Nome (ou parte dele):</label><br>
+        <input id="nome" type="text" name="nome"><br><br>
+<input id="sql_btn" type="submit" value="Pesquisar">
+      </form>
+</body>
+</html>

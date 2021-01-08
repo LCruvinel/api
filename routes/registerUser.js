@@ -3,6 +3,7 @@ const passport = require("passport");
 
 module.exports = (app) => {
   app.post("/registerUser", (req, res, next) => {
+    //let user = req.body;
     passport.authenticate("register", (err, user, info) => {
       if (err) {
         console.log(err);

@@ -1,7 +1,9 @@
 const passport = require("passport");
 
 module.exports = (app) => {
-  app.post("/findUser", (req, res, next) => {
+  app.post("/findUsers", (req, res, next) => {
+    console.log("*** FIND USERS ***");
+    console.log(req.headers);
     passport.authenticate("jwt", { session: false }, (err, user, info) => {
       if (err) {
         console.log(err);
