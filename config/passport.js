@@ -13,9 +13,16 @@ passport.use(
     {
       usernameField: "username",
       passwordField: "password",
+      /*
+      first_nameField: "first_name",
+      last_nameField: "last_name",
+      emailField: "email",
+      */
       session: false,
     },
-    (username, password, done) => {
+    (
+      //first_name, last_name, email,
+      username, password, done) => {
       try {
         User.findOne({
           where: {
@@ -29,7 +36,13 @@ passport.use(
             });
           } else {
             bcrypt.hash(password, BCRYPT_SALT_ROUNDS).then((hashedPassword) => {
-              User.create({ username, password: hashedPassword }).then(
+              User.create({ 
+                first_name: "xpto",
+                last_name: "xpto",
+                email: "xpto",
+                username, 
+                password: hashedPassword
+               }).then(
                 (user) => {
                   console.log("Utilizador adicionado!");
                   return done(null, user);
@@ -85,8 +98,8 @@ passport.use(
 );
 
 const opts = {
-//  jwtFromRequest: ExtractJWT.fromAuthHeaderWithScheme("JWT"),
-jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken("JWT"),
+  //  jwtFromRequest: ExtractJWT.fromAuthHeaderWithScheme("JWT"),
+  jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken("JWT"),
 
   secretOrKey: jwtSecret.secret,
 };
