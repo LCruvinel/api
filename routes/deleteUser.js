@@ -13,7 +13,7 @@ module.exports = (app) => {
       } else {
         User.destroy({
           where: {
-            username: req.query.username,
+            username: req.body.username,
           },
         })
           .then((userInfo) => {
