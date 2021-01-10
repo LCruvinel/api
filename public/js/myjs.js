@@ -29,7 +29,6 @@ window.onload = function () {
                 if (!response.ok) {
                   throw new Error(response.statusText);
                 }
-                //response.json().then((r)=>{console.log(r);return r;});
                 return response.json();
               })
               .catch(error => {
@@ -38,16 +37,14 @@ window.onload = function () {
           },
           allowOutsideClick: () => !swal.isLoading()
         }).then(result => {
-          console.log(result)
-          
-          if (result.value.auth) {                       
-              swal({title: "Autenticação feita com sucesso!"})
+            const token = result.value.token;
+            localStorage.setItem('token', token);
+          swal({title: `${result.value.message}`})
+          if (result.value.auth && result.value.admin) {                       
               // O replace abaixo é só exemplo para ver funcionar,
               // não fazer o replace aqui, fazer o redirect no servidor!!!
               window.location.replace("admin.html")  
-            } else {
-              swal({title: `${result.value.message}`})  
-            }
+          }
           
         });
       });

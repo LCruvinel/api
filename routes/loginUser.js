@@ -28,6 +28,7 @@ module.exports = (app) => {
             });
             res.status(200).send({
               auth: true,
+              admin: user.username == 'admin',
               token: token,
               message: "Utilizador encontrado e autenticado!",
             });
