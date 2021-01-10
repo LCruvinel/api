@@ -1,32 +1,119 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dev Web</title>
-</head>
-<body>
-    <h1>Login</h1>
-    <form id="login" action="/loginUser" method="post">
-        <label for="username">Utilizador:</label><br>
-        <input id="username" type="text" name="username"><br><br>
-        <label for="password">Senha (min. 4 carateres):</label><br>
-        <input id="password" type="password" name="password"><br><br>
-        <input id="login_btn" type="submit" value="Validar">
-      </form>
-      <h1>Register</h1>
-      <form id="register" action="/registerUser" method="post">
-        <label for="first_name">Primeiro nome:</label><br>
-        <input id="first_name" type="text" name="first_name"><br><br>
-        <label for="last_name">Último nome:</label><br>
-        <input id="last_name" type="text" name="last_name"><br><br>
-        <label for="email">E-Mail:</label><br>
-        <input id="email" type="text" name="email"><br><br>
-        <label for="username">Nome de utilizador:</label><br>
-          <input id="username" type="text" name="username"><br><br>
-          <label for="password">Senha (min. 4 carateres):</label><br>
-          <input id="password" type="password" name="password"><br><br>
-          <input id="register_btn" type="submit" value="Enviar">
-        </form>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Front-End</title>
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+      crossorigin="anonymous"
+    />
+
+    <!-- Custom styles for this template -->
+    <link href="css/mycss.css" rel="stylesheet" />
+
+    <!-- Custom fonts for this template -->
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"
+      integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+      <div class="container">
+        <a id="btnLogin" class="nav-link" href="#">LOGIN</a>
+      </div>
+    </nav>
+    <header class="masthead">
+      <div class="container">
+        <a
+          id="btnRegister"
+          class="btn btn-primary btn-xl text-uppercase"
+          href="#services"
+          >REGISTAR</a
+        >
+      </div>
+    </header>
+
+    <!-- Modal para autenticação -->
+    <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">
+              Entrar na Área privada
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form role="form">
+              <div class="form-group">
+                <input
+                  type="email"
+                  class="form-control"
+                  placeholder="Email"
+                /><br />
+                <input
+                  type="password"
+                  class="form-control"
+                  placeholder="Password"
+                />
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Cancelar
+            </button>
+            <button type="button" class="btn btn-primary">Entrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Bootstrap core JavaScript -->
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+      integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+      integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+      crossorigin="anonymous"
+    ></script>
+    <script src="js/animation.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.26.9/sweetalert2.all.min.js"></script>
+
+    <script src="js/myjs.js"></script>
   </body>
 </html>

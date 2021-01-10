@@ -11,7 +11,10 @@ module.exports = (app) => {
       }
       if (info != undefined) {
         console.log(info.message);
-        res.send(info.message); // envia ao cliente a indicação da falha de autenticação
+        res.status(200).send({
+          auth: false,
+          message: `${info.message}`,
+        }); // envia ao cliente a indicação da falha de autenticação
       } else {
         req.logIn(user, (err) => {
           // este método é necessário para as callback funcionarem
@@ -20,9 +23,9 @@ module.exports = (app) => {
               username: user.username,
             },
           }).then((user) => {
-            const token = jwt.sign({ id: user.username }, jwtSecret.secret,
-               { expiresIn: '24h' // expires in 24 hours
-                          });
+            const token = jwt.sign({ id: user.username }, jwtSecret.secret, {
+              expiresIn: "24h", // expires in 24 hours
+            });
             res.status(200).send({
               auth: true,
               token: token,
