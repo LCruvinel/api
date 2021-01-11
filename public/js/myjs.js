@@ -10,45 +10,46 @@ window.onload = function () {
       title: "Acesso",
       html:
         '<input id="txtUser" class="swal2-input" placeholder="username">' +
-        '<input id="txtPass" class="swal2-input" placeholder="password">',
+        '<input id="txtPass" type="password" class="swal2-input" placeholder="password">',
       showCancelButton: true,
-      confirmButtonText: "Entrar",
+      confirmButtonText: "Validar",
       cancelButtonText: "Cancelar",
       showLoaderOnConfirm: true,
       preConfirm: () => {
         const user = document.getElementById("txtUser").value;
         const pass = document.getElementById("txtPass").value;
         return fetch(`${urlBase}/loginUser`, {
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded"
-              },          
-              method: "POST",
-              body: `username=${user}&password=${pass}`
-            })
-              .then(response => {
-                if (!response.ok) {
-                  throw new Error(response.statusText);
-                }
-                return response.json();
-              })
-              .catch(error => {
-                swal.showValidationError(`Pedido falhado: ${error}`);
-              });
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
           },
-          allowOutsideClick: () => !swal.isLoading()
-        }).then(result => {
-            const token = result.value.token;
-            localStorage.setItem('token', token);
-          swal({title: `${result.value.message}`})
-          if (result.value.auth && result.value.admin) {                       
-              // O replace abaixo é só exemplo para ver funcionar,
-              // não fazer o replace aqui, fazer o redirect no servidor!!!
-              window.location.replace("admin.html")  
-          }
-          
-        });
-      });
-    
+          method: "POST",
+          body: `username=${user}&password=${pass}`,
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(response.statusText);
+            }
+            return response.json();
+          })
+          .catch((error) => {
+            swal.showValidationError(`Pedido falhado: ${error}`);
+          });
+      },
+      allowOutsideClick: () => !swal.isLoading(),
+    }).then((result) => {
+      swal({ title: `${result.value.message}` });
+      if (result.value.auth) {
+        const token = result.value.token;
+        localStorage.setItem("token", token);
+        if (result.value.admin) {
+          // O replace abaixo é só exemplo para ver funcionar,
+          // não fazer o replace aqui, fazer o redirect no servidor!!!
+          window.location.replace("admin.html");
+        }
+      }
+    });
+  });
+
   // Registar
   btnRegister.addEventListener("click", function () {
     swal({
