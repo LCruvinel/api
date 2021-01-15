@@ -6,7 +6,7 @@ module.exports = (app) => {
     const utente = req.body.utente;
     passport.authenticate("jwt", { session: false }, (err, user, info) => {
       if (err) {
-        console.log(err);
+        console.log("Erro: " + err);
       }
       if (info != undefined) {
         console.log(info.message);

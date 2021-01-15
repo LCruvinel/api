@@ -1,4 +1,4 @@
-window.onload = function () {
+window.onload = () => {
   const urlBase = "http://localhost:3000";
 
   const btnLogin = document.getElementById("btnLogin");
@@ -7,7 +7,6 @@ window.onload = function () {
 
   btnFU.addEventListener("click", () => {
     const token = localStorage.token;
-    console.log("Token: " + token);
     if (token == undefined) {
       alert("Falta autenticação!");
       return;
@@ -42,11 +41,7 @@ window.onload = function () {
       allowOutsideClick: () => !swal.isLoading(),
     }).then((result) => {
       if (result.value) {
-        if (!result.value.err_code) {
-          swal({ title: `${result.value.message}` });
-        } else {
-          swal({ title: `${result.value.message}` });
-        }
+        swal({ title: `${result.value.message}` });
       }
     });
   });
@@ -142,13 +137,7 @@ window.onload = function () {
       },
       allowOutsideClick: () => !swal.isLoading(),
     }).then((result) => {
-      if (result.value) {
-        if (!result.value.err_code) {
-          swal({ title: "Registo feito com sucesso!" });
-        } else {
-          swal({ title: `${result.value.err_message}` });
-        }
-      }
+      swal({ title: `${result.value.message}` });
     });
   });
 };

@@ -3,15 +3,12 @@ const passport = require("passport");
 
 module.exports = (app) => {
   app.post("/registerUser", (req, res, next) => {
-    //let user = req.body;
     passport.authenticate("register", (err, user, info) => {
       if (err) {
         console.log(err);
       }
       if (info != undefined) {
-        console.log(5);
-        console.log(info.message);
-        res.send(info.message); // envia ao cliente a indicação da falha de registo
+        res.status(200).send({message: `${info.message}`}); // envia ao cliente a indicação da falha de registo
       } else {
         req.logIn(user, (err) => {
           // este método é necessário para as callback funcionarem
