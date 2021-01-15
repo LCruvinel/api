@@ -13,15 +13,9 @@ passport.use(
     {
       usernameField: "username",
       passwordField: "password",
-      /*
-      first_nameField: "first_name",
-      last_nameField: "last_name",
-      emailField: "email",
-      */
       session: false,
     },
     (
-      //first_name, last_name, email,
       username,
       password,
       done
@@ -79,7 +73,8 @@ passport.use(
               message: "Nome de utilizador inválido!",
             });
           } else {
-            bcrypt.compare(password, user.password).then((response) => {
+            bcrypt.compare(password, user.password)
+            .then((response) => {
               if (response != true) {
                 console.log("A password não confere!");
                 return done(null, false, {
@@ -98,12 +93,10 @@ passport.use(
   )
 );
 
-const opts = {};
-opts.jwtFromRequest =
-  ExtractJWT.fromAuthHeaderWithScheme("JWT") != undefined
-    ? ExtractJWT.fromAuthHeaderWithScheme("JWT")
-    : ExtractJWT.fromAuthHeaderAsBearerToken("JWT");
-opts.secretOrKey = jwtSecret.secret;
+const opts = {
+  jwtFromRequest : ExtractJWT.fromAuthHeaderAsBearerToken("JWT"),
+  secretOrKey : jwtSecret.secret
+}
 
 passport.use(
   "jwt",

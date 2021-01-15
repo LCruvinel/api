@@ -1,3 +1,4 @@
+/*
 async componentDidMount() {
     let accessString = localStorage.getItem('JWT');
     if (accessString == null) {
@@ -28,3 +29,4 @@ async componentDidMount() {
         console.log(error.data);
     });
 }
+*/

@@ -3,9 +3,56 @@ window.onload = function () {
 
   const btnLogin = document.getElementById("btnLogin");
   const btnRegister = document.getElementById("btnRegister");
+  const btnFU = document.getElementById("btnFindUsers");
+
+  btnFU.addEventListener("click", () => {
+    const token = localStorage.token;
+    console.log("Token: " + token);
+    if (token == undefined) {
+      alert("Falta autenticação!");
+      return;
+    }
+    swal({
+      title: "Find Users",
+      html: '<input id="txtUser" class="swal2-input" placeholder="utente">',
+      showCancelButton: true,
+      confirmButtonText: "Pesquisar",
+      cancelButtonText: "Cancelar",
+      showLoaderOnConfirm: true,
+      preConfirm: () => {
+        const utente = document.getElementById("txtUser").value;
+        return fetch("http://localhost:3000/findUsers", {
+          method: "POST",
+          body: `utente=${utente}`,
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            Authorization: `Bearer ${token}`,
+          },
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(response.statusText);
+            }
+            return response.json();
+          })
+          .catch((error) => {
+            swal.showValidationError(`Request failed: ${error}`);
+          });
+      },
+      allowOutsideClick: () => !swal.isLoading(),
+    }).then((result) => {
+      if (result.value) {
+        if (!result.value.err_code) {
+          swal({ title: `${result.value.message}` });
+        } else {
+          swal({ title: `${result.value.message}` });
+        }
+      }
+    });
+  });
 
   // Autenticar
-  btnLogin.addEventListener("click", function () {
+  btnLogin.addEventListener("click", () => {
     swal({
       title: "Acesso",
       html:
@@ -51,7 +98,7 @@ window.onload = function () {
   });
 
   // Registar
-  btnRegister.addEventListener("click", function () {
+  btnRegister.addEventListener("click", () => {
     swal({
       title: "Novo Registo",
       html:
