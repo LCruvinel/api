@@ -1,22 +1,34 @@
 const Sequelize = require("sequelize");
 const UserModel = require("./models/utentes");
+const BookModel = require("./models/bookData");
 
 const bcrypt = require("bcrypt"),
   BCRYPT_SALT_ROUNDS = 12;
 
-const sequelize = new Sequelize("users", "webdev", "DevWeb01", {
+  const db = {};
+db[0] = new Sequelize("users", "webdev", "DevWeb01", {
+  host: "localhost",
+  dialect: "mysql",
+});
+db[1] = new Sequelize("library", "webdev", "DevWeb01", {
   host: "localhost",
   dialect: "mysql",
 });
 
-const User = UserModel(sequelize, Sequelize);
+const tables = {};
+tables[0] = UserModel(db[0], Sequelize);
+tables[1] = BookModel(db[1], Sequelize);
 
-sequelize.sync().then(() => {
+/*
+// Fazer o sync() para criar a tabela se não existir
+db[0].sync().then(() => {
   console.log(
     "Criou na BD users a tabela utentes (se não existisse anteriormente)"
   );
+});
+*/
   /*  
-  // Na primeira execução cria a conta do administrador
+  // Na primeira execução pode criar a conta do administrador
   bcrypt.hash("123", BCRYPT_SALT_ROUNDS).then((hashedPassword) => {
     User.create({
       first_name: "Admin",
@@ -29,5 +41,5 @@ sequelize.sync().then(() => {
     });
   });
   */
-});
-module.exports = User;
+module.exports = tables;
+

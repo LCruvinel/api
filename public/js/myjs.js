@@ -4,7 +4,42 @@ window.onload = () => {
   const btnLogin = document.getElementById("btnLogin");
   const btnRegister = document.getElementById("btnRegister");
   const btnFU = document.getElementById("btnFindUsers");
+  const btnLogout = document.getElementById("btnLogout");
 
+  // Sair
+  btnLogout.addEventListener("click", () => {
+    const token = localStorage.token;
+    if (token == undefined) {
+      alert("Falta autenticação!");
+      return;
+    }
+    return fetch(`${urlBase}/logout`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(response.statusText);
+        }
+        return response.json();
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .then((result) => {
+        console.log(result);
+        if (!result.auth) {
+          localStorage.removeItem("token");
+          //document.getElementById("logout").style.display = "none";
+          window.location.replace("index.html");
+        }
+      });
+  });
+
+  // Encontrar um utilizador
   btnFU.addEventListener("click", () => {
     const token = localStorage.token;
     if (token == undefined) {
@@ -20,7 +55,7 @@ window.onload = () => {
       showLoaderOnConfirm: true,
       preConfirm: () => {
         const utente = document.getElementById("txtUser").value;
-        return fetch("http://localhost:3000/findUsers", {
+        return fetch(`${urlBase}/findUsers`, {
           method: "POST",
           body: `utente=${utente}`,
           headers: {
@@ -83,6 +118,7 @@ window.onload = () => {
       if (result.value.auth) {
         const token = result.value.token;
         localStorage.setItem("token", token);
+        document.getElementById("logout").style.display = "block";
         if (result.value.admin) {
           // O replace abaixo é só exemplo para ver funcionar,
           // não fazer o replace aqui, fazer o redirect no servidor!!!
@@ -140,4 +176,28 @@ window.onload = () => {
       swal({ title: `${result.value.message}` });
     });
   });
+
+  /* 
+  Obter os livros do servidor
+*//*
+  (async () => {
+    const renderBooks = document.getElementById("renderBooks");
+    let txtBooks = "";
+    const response = await fetch(`${urlBase}/books`);
+    const books = await response.json();
+
+    for (const book of books) {
+      txtBooks += `
+    <div class="col-sm-4">
+      <div class="team-member">      
+        <img id="${book.idBook}" class="mx-auto rounded-circle viewBook" src="${book.foto}" alt="">
+        <h4>${book.nome}</h4>
+        <p class="text-muted">${book.autor}</p>`;
+      txtSpeakers += `                
+      </div>
+    </div>
+    `;
+    }
+    renderBooks.innerHTML = txtBooks;
+  })();*/
 };

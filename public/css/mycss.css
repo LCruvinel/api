@@ -11,6 +11,9 @@
   p {
     line-height: 1.75;
   }
+  #logout {
+    display: none;
+  }
   
   a {
     color: #3677b1;

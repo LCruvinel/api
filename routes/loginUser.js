@@ -1,7 +1,8 @@
-const User = require("../sequelize");
+const tables = require("../sequelize");
 const jwtSecret = require("../config/jwtConfig");
 const jwt = require("jsonwebtoken");
 const passport = require("passport");
+const User = tables[0];
 
 module.exports = (app) => {
   app.post("/loginUser", (req, res, next) => {
@@ -24,7 +25,7 @@ module.exports = (app) => {
             },
           }).then((user) => {
             const token = jwt.sign({ id: user.username }, jwtSecret.secret, {
-              expiresIn: 60, // expires in 1 min
+              expiresIn: 300, // expires in 5 min
             });
             res.status(200).send({
               auth: true,

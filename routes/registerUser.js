@@ -1,5 +1,6 @@
-const User = require("../sequelize");
+const tables = require("../sequelize");
 const passport = require("passport");
+const User = tables[0];
 
 module.exports = (app) => {
   app.post("/registerUser", (req, res, next) => {

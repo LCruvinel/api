@@ -20,6 +20,7 @@ require('./routes/registerUser')(app);
 require('./routes/findUsers')(app);
 require('./routes/deleteUser')(app);
 require('./routes/updateUser')(app);
+require('./routes/logout')(app);
 
 app.listen(API_PORT, () => console.log(`Estou a ouvir na porta ${API_PORT}`));
 
