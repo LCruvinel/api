@@ -179,25 +179,26 @@ window.onload = () => {
 
   /* 
   Obter os livros do servidor
-*//*
+*/
   (async () => {
     const renderBooks = document.getElementById("renderBooks");
     let txtBooks = "";
-    const response = await fetch(`${urlBase}/books`);
+    const response = await fetch(`${urlBase}/allbooks`);
     const books = await response.json();
+    console.log(books);
 
     for (const book of books) {
       txtBooks += `
     <div class="col-sm-4">
       <div class="team-member">      
-        <img id="${book.idBook}" class="mx-auto rounded-circle viewBook" src="${book.foto}" alt="">
-        <h4>${book.nome}</h4>
-        <p class="text-muted">${book.autor}</p>`;
-      txtSpeakers += `                
+        <img id="${book.idBook}" class="mx-auto rounded-circle viewBook" src="${book.BookPhoto}" alt="">
+        <h4>${book.BookTitle}</h4>
+        <p class="text-muted">${book.AuthorName}</p>`;
+      txtBooks += `                
       </div>
     </div>
     `;
     }
     renderBooks.innerHTML = txtBooks;
-  })();*/
+  })();
 };
