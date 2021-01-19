@@ -33,7 +33,7 @@ window.onload = () => {
         console.log(result);
         if (!result.auth) {
           localStorage.removeItem("token");
-          //document.getElementById("logout").style.display = "none";
+          //document.getElementById("btnLogout").style.display = "none";
           window.location.replace("index.html");
         }
       });
@@ -118,7 +118,7 @@ window.onload = () => {
       if (result.value.auth) {
         const token = result.value.token;
         localStorage.setItem("token", token);
-        document.getElementById("logout").style.display = "block";
+        document.getElementById("btnLogout").style.display = "inline";
         if (result.value.admin) {
           // O replace abaixo é só exemplo para ver funcionar,
           // não fazer o replace aqui, fazer o redirect no servidor!!!
