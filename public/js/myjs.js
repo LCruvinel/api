@@ -115,8 +115,14 @@ window.onload = () => {
       allowOutsideClick: () => !swal.isLoading(),
     }).then((result) => {
       swal({ title: `${result.value.message}` });
-      console.log(result.value.favoritos);
+      let favbooks = JSON.parse(result.value.favoritos);
+      console.log(favbooks);
+      favbooks.forEach(fav => {
+        console.log(fav.bookid)
+        document.getElementById(`img${fav.bookid}`).style.border = "5px solid rgb(230, 11, 200)";      
+      });
       if (result.value.auth) {
+        // rgb(230, 11, 200)
         const token = result.value.token;
         localStorage.setItem("token", token);
         document.getElementById("btnLogout").style.display = "inline";
@@ -191,7 +197,7 @@ window.onload = () => {
     for (const book of books) {
       txtBooks += `
     <div class="col-sm-4">
-      <div class="team-member">      
+      <div id="img${book.Id}" class="team-member">      
         <img id="${book.Id}" class="mx-auto rounded-circle viewBook" src="${book.BookPhoto}" alt="">
         <h4>${book.BookTitle}</h4>
         <p class="text-muted">${book.AuthorName}</p>`;
