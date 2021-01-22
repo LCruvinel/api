@@ -3,6 +3,7 @@ const jwtSecret = require("../config/jwtConfig");
 const jwt = require("jsonwebtoken");
 const passport = require("passport");
 const User = tables[0];
+const Favoritos = tables[2];
 
 module.exports = (app) => {
   app.post("/loginUser", (req, res, next) => {
@@ -25,13 +26,20 @@ module.exports = (app) => {
             },
           }).then((user) => {
             const token = jwt.sign({ id: user.username }, jwtSecret.secret, {
-              expiresIn: 300, // expires in 5 min
+              expiresIn: 60, // expires in 1 min
             });
-            res.status(200).send({
-              auth: true,
-              admin: user.username == 'admin',
-              token: token,
-              message: "Utilizador encontrado e autenticado!",
+            Favoritos.findAll({
+              where: {
+                userid: user.id,
+              },
+            }).then((favoritos) => {
+              res.status(200).send({
+                auth: true,
+                admin: user.username == "admin",
+                token: token,
+                message: "Utilizador encontrado e autenticado!",
+                favoritos: JSON.stringify(favoritos, null, 2),
+              });
             });
           });
         });

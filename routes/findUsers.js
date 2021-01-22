@@ -19,15 +19,21 @@ module.exports = (app) => {
             username: utente,
           },
         }).then((user) => {
-          res.status(200).send({
-            auth: true,
-            first_name: user.first_name,
-            last_name: user.last_name,
-            email: user.email,
-            username: user.username,
-            // password: user.password,
-            message: "Utilizador " + user.username + " encontrado na BD!",
-          });
+          if (user == null) {
+            res.status(200).send({
+              message: "Utilizador " + utente + " não encontrado na BD!",
+            });
+          } else {
+            res.status(200).send({
+              //auth: true,
+              first_name: user.first_name,
+              last_name: user.last_name,
+              email: user.email,
+              username: user.username,
+              // password: user.password,
+              message: "Utilizador " + user.username + " encontrado na BD!",
+            });
+          }
         });
       }
     })(req, res, next);

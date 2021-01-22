@@ -115,6 +115,7 @@ window.onload = () => {
       allowOutsideClick: () => !swal.isLoading(),
     }).then((result) => {
       swal({ title: `${result.value.message}` });
+      console.log(result.value.favoritos);
       if (result.value.auth) {
         const token = result.value.token;
         localStorage.setItem("token", token);
@@ -181,6 +182,7 @@ window.onload = () => {
   Obter os livros do servidor
 */
   (async () => {
+    localStorage.clear();
     const renderBooks = document.getElementById("renderBooks");
     let txtBooks = "";
     const response = await fetch(`${urlBase}/allbooks`);
@@ -190,7 +192,7 @@ window.onload = () => {
       txtBooks += `
     <div class="col-sm-4">
       <div class="team-member">      
-        <img id="${book.idBook}" class="mx-auto rounded-circle viewBook" src="${book.BookPhoto}" alt="">
+        <img id="${book.Id}" class="mx-auto rounded-circle viewBook" src="${book.BookPhoto}" alt="">
         <h4>${book.BookTitle}</h4>
         <p class="text-muted">${book.AuthorName}</p>`;
       txtBooks += `                
