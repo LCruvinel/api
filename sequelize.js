@@ -2,10 +2,7 @@ const Sequelize = require("sequelize");
 const UserModel = require("./models/utentes");
 const BookModel = require("./models/bookData");
 
-const bcrypt = require("bcrypt"),
-  BCRYPT_SALT_ROUNDS = 12;
-
-  const db = {};
+const db = {};
 db[0] = new Sequelize("users", "webdev", "DevWeb01", {
   host: "localhost",
   dialect: "mysql",
@@ -27,9 +24,12 @@ db[0].sync().then(() => {
   );
 });
 */
-  /*  
+/*  
   // Na primeira execução pode criar a conta do administrador
-  bcrypt.hash("123", BCRYPT_SALT_ROUNDS).then((hashedPassword) => {
+  const bcrypt = require("bcrypt"),
+  BCRYPT_SALT_ROUNDS = 12;
+
+bcrypt.hash("123", BCRYPT_SALT_ROUNDS).then((hashedPassword) => {
     User.create({
       first_name: "Admin",
       last_name: "admin",
@@ -42,4 +42,3 @@ db[0].sync().then(() => {
   });
   */
 module.exports = tables;
-

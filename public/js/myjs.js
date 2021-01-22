@@ -185,7 +185,6 @@ window.onload = () => {
     let txtBooks = "";
     const response = await fetch(`${urlBase}/allbooks`);
     const books = await response.json();
-    console.log(books);
 
     for (const book of books) {
       txtBooks += `
