@@ -26,7 +26,7 @@ module.exports = (app) => {
             },
           }).then((user) => {
             const token = jwt.sign({ id: user.username }, jwtSecret.secret, {
-              expiresIn: 60, // expires in 1 min
+              expiresIn: 300, // expires in 5 min
             });
             Favoritos.findAll({
               where: {

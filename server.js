@@ -22,6 +22,7 @@ require('./routes/deleteUser')(app);
 require('./routes/updateUser')(app);
 require('./routes/logout')(app);
 require('./routes/allbooks')(app);
+require('./routes/clickFavorito')(app);
 
 app.listen(API_PORT, () => console.log(`Estou a ouvir na porta ${API_PORT}`));
 

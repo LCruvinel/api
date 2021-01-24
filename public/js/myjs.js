@@ -5,6 +5,7 @@ window.onload = () => {
   const btnRegister = document.getElementById("btnRegister");
   const btnFU = document.getElementById("btnFindUsers");
   const btnLogout = document.getElementById("btnLogout");
+  const favIcons = document.getElementsByClassName("favorite-icon");
 
   // Sair
   btnLogout.addEventListener("click", () => {
@@ -115,16 +116,11 @@ window.onload = () => {
       allowOutsideClick: () => !swal.isLoading(),
     }).then((result) => {
       swal({ title: `${result.value.message}` });
-      let favbooks = JSON.parse(result.value.favoritos);
-      console.log(favbooks);
-      favbooks.forEach(fav => {
-        console.log(fav.bookid)
-        document.getElementById(`img${fav.bookid}`).style.border = "5px solid rgb(230, 11, 200)";      
-      });
       if (result.value.auth) {
-        // rgb(230, 11, 200)
         const token = result.value.token;
         localStorage.setItem("token", token);
+        marcaFavoritos(JSON.parse(result.value.favoritos));
+        criaClickEventoFavoritos();
         document.getElementById("btnLogout").style.display = "inline";
         if (result.value.admin) {
           // O replace abaixo é só exemplo para ver funcionar,
@@ -134,6 +130,45 @@ window.onload = () => {
       }
     });
   });
+
+  function marcaFavoritos(favbooks) {
+    const btnFIcon = document.getElementsByClassName("favorite-icon");
+    for (let i = 0; i < btnFIcon.length; i++) {
+      btnFIcon[i].src = "img/AddFav.png";
+    }
+    favbooks.forEach((fav) => {
+      document.getElementById(`fav${fav.bookid}`).src = "img/Favorito.png";
+      console.log("marcou livro " + fav.bookid);
+    });
+  }
+
+  function criaClickEventoFavoritos() {
+    const token = localStorage.token;
+    if (token == undefined) {
+      alert("Falta autenticação!");
+      return;
+    }
+    const btnFIcon = document.getElementsByClassName("favorite-icon");
+    for (let i = 0; i < btnFIcon.length; i++) {
+      btnFIcon[i].addEventListener("click", () => {
+        const bookid = btnFIcon[i].id.substring(3);
+        fetch(`${urlBase}/clickFavorito`, {
+          method: "POST",
+          body: `item=${bookid}`,
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            Authorization: `Bearer ${token}`,
+          },
+        })
+          .then((response) => {
+            return response.json();
+          })
+          .then((result) => {
+            marcaFavoritos(JSON.parse(result.favoritos));
+          });
+      });
+    }
+  }
 
   // Registar
   btnRegister.addEventListener("click", () => {
@@ -198,8 +233,8 @@ window.onload = () => {
       txtBooks += `
     <div class="col-sm-4">
       <div id="img${book.Id}" class="team-member">      
-        <img id="${book.Id}" class="mx-auto rounded-circle viewBook" src="${book.BookPhoto}" alt="">
-        <h4>${book.BookTitle}</h4>
+        <img id="${book.Id}" class="mx-auto rounded-circle viewBook" src="${book.BookPhoto}" alt="Livro">
+        <h4>${book.BookTitle}<img id="fav${book.Id}" class="favorite-icon" src="img/AddFav.png" alt="Adicionar Favorito"></h4>
         <p class="text-muted">${book.AuthorName}</p>`;
       txtBooks += `                
       </div>
@@ -207,5 +242,22 @@ window.onload = () => {
     `;
     }
     renderBooks.innerHTML = txtBooks;
+    const btnView = document.getElementsByClassName("viewBook");
+    for (let i = 0; i < btnView.length; i++) {
+      btnView[i].addEventListener("click", () => {
+        for (const book of books) {
+          if (book.Id == btnView[i].getAttribute("id")) {
+            swal({
+              title: book.BookTitle,
+              text: book.AuthorName,
+              imageUrl: book.BookPhoto,
+              imageWidth: 300,
+              imageAlt: "Capa do livro",
+              animation: false,
+            });
+          }
+        }
+      });
+    }
   })();
 };
