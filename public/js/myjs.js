@@ -135,6 +135,7 @@ window.onload = () => {
     const btnFIcon = document.getElementsByClassName("favorite-icon");
     for (let i = 0; i < btnFIcon.length; i++) {
       btnFIcon[i].src = "img/AddFav.png";
+      btnFIcon[i].style.display = "inline";
     }
     favbooks.forEach((fav) => {
       document.getElementById(`fav${fav.bookid}`).src = "img/Favorito.png";
