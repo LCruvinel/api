@@ -51,7 +51,6 @@ module.exports = (app) => {
               }).then((favs) => {
                 if (novoFav != null) favs.push(novoFav);
                 novoFav = null;
-                console.log(JSON.stringify(favs, null, 2));
                 res.status(200).send({
                   favoritos: JSON.stringify(favs, null, 2),
                 });

@@ -139,7 +139,6 @@ window.onload = () => {
     }
     favbooks.forEach((fav) => {
       document.getElementById(`fav${fav.bookid}`).src = "img/Favorito.png";
-      console.log("marcou livro " + fav.bookid);
     });
   }
 
