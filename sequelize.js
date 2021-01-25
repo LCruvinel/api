@@ -17,6 +17,7 @@ const tables = {};
 tables[0] = UserModel(db[0], Sequelize);
 tables[1] = BookModel(db[1], Sequelize);
 tables[2] = Favoritos(db[0], Sequelize);
+tables[3] = db[0];
 
 /*
 // Fazer o sync() para criar a tabela se não existir

@@ -4,10 +4,11 @@ const allbooks = require("./allbooks");
 const Favorito = tables[2];
 const User = tables[0];
 let novoFav = null;
+const Op = require("sequelize");
 
 module.exports = (app) => {
   app.post("/clickFavorito", (req, res, next) => {
-    const book = req.body.item;
+    const book = parseInt(req.body.item);
     passport.authenticate("jwt", { session: false }, (err, user, info) => {
       if (err) {
         console.log("Erro: " + err);
@@ -27,7 +28,7 @@ module.exports = (app) => {
               bookid: book,
             },
           })
-            .then((registo) => {
+            .then(async (registo) => {
               if (registo != null) {
                 registo.destroy(); // era favorito, já não é
               } else {
@@ -49,7 +50,16 @@ module.exports = (app) => {
                   userid: user.id,
                 },
               }).then((favs) => {
-                if (novoFav != null) favs.push(novoFav);
+                if (novoFav != null) {
+                  favs.push(novoFav);
+                } else {
+                  for (let i = 0; i < favs.length; i++) {
+                    if (favs[i].bookid == book) {
+                      favs.splice(i,1);
+                      break;
+                    }
+                  }
+                }
                 novoFav = null;
                 res.status(200).send({
                   favoritos: JSON.stringify(favs, null, 2),
