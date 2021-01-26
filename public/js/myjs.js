@@ -122,6 +122,7 @@ window.onload = () => {
         marcaFavoritos(JSON.parse(result.value.favoritos));
         criaClickEventoFavoritos();
         document.getElementById("btnLogout").style.display = "inline";
+        document.getElementById("btnFindUsers").style.display = "inline";
         if (result.value.admin) {
           // O replace abaixo é só exemplo para ver funcionar,
           // não fazer o replace aqui, fazer o redirect no servidor!!!

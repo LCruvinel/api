@@ -55,7 +55,7 @@ module.exports = (app) => {
                 } else {
                   for (let i = 0; i < favs.length; i++) {
                     if (favs[i].bookid == book) {
-                      favs.splice(i,1);
+                      favs.splice(i, 1);
                       break;
                     }
                   }
